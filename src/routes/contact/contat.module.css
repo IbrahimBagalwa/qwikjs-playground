@@ -3,6 +3,20 @@
   height: 100px;
   border-radius: 50%;
 }
+.search {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #006ce9;
+  display: block;
+  width: fit-content;
+}
+.centerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
 .container {
   padding-block-start: 20px;
   display: grid;
