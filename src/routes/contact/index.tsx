@@ -1,10 +1,16 @@
 import { Resource, component$, useResource$, useSignal } from '@builder.io/qwik'
 
 import { CONTACTS, Contact } from './fake-contact-db'
-import styles from './contat.module.css'
+import styles from './contact.module.css'
 export default component$(() => {
-  const contactsResponse = useResource$<Contact[]>(async () => {
-    return await Promise.resolve(CONTACTS)
+  const contactsResponse = useResource$<Contact[]>(() => {
+    return CONTACTS.map((contact) => {
+      return {
+        id: contact.id,
+        name: contact.name,
+        avatar: contact.avatar,
+      }
+    })
   })
   const filteredContacts = useSignal('')
   return (
@@ -33,7 +39,11 @@ export default component$(() => {
           return (
             <section class={styles.container}>
               {mappedContact.map((contact) => (
-                <div key={contact.id} class={styles.content}>
+                <a
+                  href={'/contact/' + contact.id + '/'}
+                  key={contact.id}
+                  class={styles.content}
+                >
                   <img
                     width='200'
                     height='200'
@@ -43,16 +53,8 @@ export default component$(() => {
                   />
                   <div>
                     <p class={styles.name}>{contact.name}</p>
-                    <p class={styles.role}>{contact.role}</p>
-                    <div class={styles.link}>
-                      <a href={contact.twitter}>twitter</a>
-                      <span> | </span>
-                      <a href={contact.linkedin}>linkedin</a>
-                      <span> | </span>
-                      <a href={contact.github}>github</a>
-                    </div>
                   </div>
-                </div>
+                </a>
               ))}
             </section>
           )
